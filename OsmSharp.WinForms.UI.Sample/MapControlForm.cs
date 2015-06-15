@@ -23,8 +23,6 @@ using OsmSharp.Osm.PBF.Streams;
 using OsmSharp.Osm.Streams.Filters;
 using OsmSharp.Osm.Xml.Streams;
 using OsmSharp.Routing;
-using OsmSharp.Routing.Optimization.TSP;
-using OsmSharp.Routing.Optimization.TSP.Genetic;
 using OsmSharp.Routing.Osm.Interpreter;
 using OsmSharp.Routing.Vehicles;
 using OsmSharp.UI;
@@ -140,15 +138,7 @@ namespace OsmSharp.WinForms.UI.Sample
 
                 if(_points.Count > 1)
                 {
-                    var tspRouter = new RouterTSPWrapper<RouterTSPAEXGenetic>(
-                        new RouterTSPAEXGenetic(), _router);
 
-                    var route = tspRouter.CalculateTSP(Vehicle.Car, _points.ToArray());
-                    if(route != null)
-                    {
-                        _layerRoute.Clear();
-                        _layerRoute.AddRoute(route);
-                    }
                 }
             }
         }

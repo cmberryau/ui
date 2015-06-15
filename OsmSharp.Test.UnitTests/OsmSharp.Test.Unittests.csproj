@@ -179,13 +179,7 @@
     <Compile Include="Osm\Streams\Filters\OsmStreamFilterSortTest.cs" />
     <Compile Include="Osm\Streams\Filters\OsmStreamFilterTagsFilterTest.cs" />
     <Compile Include="Osm\TagParsingTests.cs" />
-    <Compile Include="Math\VRP\Core\Routes\DepotRouteTests.cs" />
     <Compile Include="Osm\API\APITests.cs" />
-    <Compile Include="Math\VRP\Core\Routes\DynamicAsymmetricMultiRouteTests.cs" />
-    <Compile Include="Math\VRP\Core\Routes\DynamicAsymmetricRouteTests.cs" />
-    <Compile Include="Math\VRP\Core\Routes\MultiRouteTest.cs" />
-    <Compile Include="Math\VRP\Core\Routes\RouteTest.cs" />
-    <Compile Include="Math\VRP\Core\Routes\SimpleAsymmetricRouteTests.cs" />
     <Compile Include="Routing\CH\CHEdgeDataTests.cs" />
     <Compile Include="Routing\CH\CHEdgeDifferenceComparisonTests.cs" />
     <Compile Include="Routing\CH\CHVerifiedContractionBaseTests.cs" />
@@ -231,7 +225,6 @@
     <Compile Include="Routing\RoutingRegressionTests.cs" />
     <Compile Include="Routing\RoutingTests.cs" />
     <Compile Include="Routing\Serialization\RoutingSerializationTests.cs" />
-    <Compile Include="Routing\TSP\TSPWrapperTest.cs" />
     <Compile Include="Routing\VehicleBaseTests.cs" />
     <Compile Include="Routing\VehicleBicycleTests.cs" />
     <Compile Include="Routing\VehicleBigTruckTests.cs" />
@@ -260,7 +253,6 @@
     <Compile Include="Collections\StringTableTests.cs" />
     <Compile Include="Math\Structures\StringTrees\StringTreeDictionaryTest.cs" />
     <Compile Include="Collections\Tags\TagsCollectionTests.cs" />
-    <Compile Include="Routing\TSP\BruteForceTSPTest.cs" />
     <Compile Include="Math\Algorithms\SimplifyCurveTests.cs" />
     <Compile Include="Math\Primitives\BoxF2DTests.cs" />
     <Compile Include="Math\Algorithms\RotationTests.cs" />
