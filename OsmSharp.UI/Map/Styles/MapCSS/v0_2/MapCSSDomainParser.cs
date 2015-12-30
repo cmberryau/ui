@@ -239,7 +239,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
                                 var selectorZoom = new SelectorZoom();
                                 int zoom;
                                 // parse zoom 1.
-                                if (string.IsNullOrWhiteSpace(zooms[0]))
+                                if (zooms[0].IsNullOrWhiteSpace())
                                 { // minzoom is zero.
                                     selectorZoom.ZoomMin = null;
                                 }
@@ -256,7 +256,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
                                                                           "Zoom selector invalid!");
                                 }
                                 // parse zoom 2.
-                                if (string.IsNullOrWhiteSpace(zooms[1]))
+                                if (zooms[1].IsNullOrWhiteSpace())
                                 { // minzoom is zero.
                                     selectorZoom.ZoomMax = null;
                                 }
@@ -1461,11 +1461,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
             { // the color is defined as an integer? this cannot happen??
                 return valueInt;
             }
-#if!WINDOWS_PHONE
-            else if (Enum.TryParse<KnownColor>(colorTree.Text, true, out namedColor))
-#else
             else if (EnumHelper.TryParse<KnownColor>(colorTree.Text, true, out namedColor))
-#endif
             { // the color was named.
                 return SimpleColor.FromKnownColor(namedColor).Value;
             }

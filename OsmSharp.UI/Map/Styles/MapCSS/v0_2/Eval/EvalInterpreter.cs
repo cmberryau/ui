@@ -59,7 +59,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Eval
 		/// <param name="evalFunction">Eval function.</param>
 		/// <param name="tags">Tags.</param>
 		public string InterpretString(string evalFunction, ITagsSource tags){
-			if (string.IsNullOrWhiteSpace(evalFunction)) { throw new ArgumentOutOfRangeException("evalFunction cannot be null"); }
+            if (evalFunction.IsNullOrWhiteSpace()) { throw new ArgumentOutOfRangeException("evalFunction cannot be null"); }
 
 			// trim eval function.
 			evalFunction = evalFunction.Trim();

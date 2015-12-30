@@ -37,7 +37,8 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Domain
 		/// <returns></returns>
 		public override float Eval (MapCSSObject mapCSSObject)
 		{
-			if (!string.IsNullOrWhiteSpace (this.EvalFunction)) {
+            if (!this.EvalFunction.IsNullOrWhiteSpace())
+            {
 				return EvalInterpreter.Instance.InterpretFloat (this.EvalFunction, mapCSSObject);
 			}
 			return this.Value;

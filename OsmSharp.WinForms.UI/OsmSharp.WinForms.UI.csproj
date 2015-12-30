@@ -7,7 +7,7 @@
     <OutputType>Library</OutputType>
     <RootNamespace>OsmSharp.WinForms.UI</RootNamespace>
     <AssemblyName>OsmSharp.WinForms.UI</AssemblyName>
-    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -65,25 +65,19 @@
     <Prefer32Bit>false</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="OsmSharp, Version=0.0.0.48, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OsmSharp.Core.0.0.0.48-beta\lib\net40\OsmSharp.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="OsmSharp, Version=0.0.0.9999, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\core\Output\OsmSharp.dll</HintPath>
     </Reference>
-    <Reference Include="OsmSharp.Osm, Version=0.0.0.48, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\OsmSharp.Core.0.0.0.48-beta\lib\net40\OsmSharp.Osm.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="OsmSharp.Osm, Version=0.0.0.9999, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\core\Output\OsmSharp.Osm.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
-    <Reference Include="protobuf-net, Version=2.0.0.668, Culture=neutral, PublicKeyToken=257b51d87d2e4d67">
-      <HintPath>..\packages\protobuf-net.2.0.0.668\lib\net40\protobuf-net.dll</HintPath>
-    </Reference>
-    <Reference Include="Zlib.Portable, Version=1.9.1.9000, Culture=neutral, PublicKeyToken=null">
-      <HintPath>..\packages\Zlib.Portable.1.9.2\lib\portable-net4+sl4+wp71+win8\Zlib.Portable.dll</HintPath>
-    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\SharedAssemblyVersion.cs">
@@ -118,9 +112,6 @@
       <Project>{1524C255-2EE5-4C0C-A64C-56CE39A062E3}</Project>
       <Name>OsmSharp.UI</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>

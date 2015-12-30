@@ -36,12 +36,36 @@ namespace OsmSharp.WinForms.UI.Cache
         /// </summary>
         private DirectoryInfo _cacheDirectory;
 
+        public override int NodeCount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override int WayCount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
+        public override int RelationCount
+        {
+            get
+            {
+                throw new NotImplementedException();
+            }
+        }
+
         /// <summary>
         /// Creates a new osm data cache for simple OSM objects.
         /// </summary>
         public OsmDataCacheDisk()
         {
-            _cacheDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath() + Guid.NewGuid().ToString()));
+            _cacheDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
             _cacheDirectory.Create();
         }
 
@@ -287,8 +311,83 @@ namespace OsmSharp.WinForms.UI.Cache
         {
             _cacheDirectory.Delete(true);
 
-            _cacheDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath() + Guid.NewGuid().ToString()));
+            _cacheDirectory = new DirectoryInfo(Path.Combine(Path.GetTempPath(), Guid.NewGuid().ToString()));
             _cacheDirectory.Create();
+        }
+
+        public override void AddNodes(IList<Node> nodes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddNodes(IDictionary<long, Node> nodes)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IDictionary<long, Node> GetNodes(IList<long> ids, out IList<long> remaining_ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IList<Node> GetNodesList(IList<long> ids, out IList<long> remaining_ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ContainsNode(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddWays(IList<Way> ways)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddWays(IDictionary<long, Way> ways)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IDictionary<long, Way> GetWays(IList<long> ids, out IList<long> remaining_ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IList<Way> GetWaysList(IList<long> ids, out IList<long> remaining_ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ContainsWay(long id)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddRelations(IList<Relation> relations)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override void AddRelations(IDictionary<long, Relation> relations)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IDictionary<long, Relation> GetRelations(IList<long> ids, out IList<long> remaining_ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override IList<Relation> GetRelationsList(IList<long> ids, out IList<long> remaining_ids)
+        {
+            throw new NotImplementedException();
+        }
+
+        public override bool ContainsRelation(long id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

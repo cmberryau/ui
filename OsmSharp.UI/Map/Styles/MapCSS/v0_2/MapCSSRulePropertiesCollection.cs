@@ -119,7 +119,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
                         currentRule = null;
                     }
 
-                    if (!string.IsNullOrWhiteSpace(currentRuleString))
+                    if (!currentRuleString.IsNullOrWhiteSpace())
                     { // only do this part when string is not empty.
                         minZoom = zoomLevel; // set the min zoom.
                         MapCSSRuleProperties props = this.GetRulesForZoom(zoomLevel);

@@ -40,9 +40,10 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Domain
         /// <returns></returns>
         public virtual TValue Eval(MapCSSObject mapCSSObject)
         {
-			if (!string.IsNullOrWhiteSpace (this.EvalFunction)) {
+            if (this.EvalFunction.IsNullOrWhiteSpace())
+            {
 				throw new NotSupportedException (string.Format("Eval function not supported on this value declaration type: {0}.",
-				                                this.GetType ().ToString ()));
+				                                 this.GetType ().ToString ()));
 			}
 			return this.Value;
         }
@@ -53,7 +54,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Domain
         /// <returns></returns>
         public override string ToString()
         {
-            if (!string.IsNullOrWhiteSpace(this.EvalFunction))
+            if (!this.EvalFunction.IsNullOrWhiteSpace())
             {
                 return string.Format("{0}:{1}",
                                     this.ConvertToDashedFormat(this.Qualifier.ToString()),

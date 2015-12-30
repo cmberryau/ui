@@ -20,7 +20,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Domain
 		/// <param name="mapCSSObject">Map CSS object.</param>
 		public override string Eval (MapCSSObject mapCSSObject)
 		{
-			if (!string.IsNullOrWhiteSpace (this.EvalFunction)) {
+			if (!this.EvalFunction.IsNullOrWhiteSpace()) {
 				return EvalInterpreter.Instance.InterpretString (this.EvalFunction, mapCSSObject);
 			}
 			return this.Value;
