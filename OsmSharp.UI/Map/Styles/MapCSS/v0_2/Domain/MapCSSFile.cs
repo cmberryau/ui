@@ -80,6 +80,36 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Domain
 	    public int? CanvasFillColor { get; set; }
 
         /// <summary>
+        /// The route fill color.
+        /// </summary>
+        public int? RouteFillColor { get; set; }
+
+        /// <summary>
+        /// The route z index
+        /// </summary>
+        public int? RouteZIndex { get; set; }
+
+        /// <summary>
+        /// Returns the rules for the route
+        /// </summary>
+        public List<MapCSSRuleProperties> RouteRules { get; set; }
+
+        /// <summary>
+        /// The route fill color.
+        /// </summary>
+        public int? ArrowFillColor { get; set; }
+
+        /// <summary>
+        /// The route z index
+        /// </summary>
+        public int? ArrowZIndex { get; set; }
+
+        /// <summary>
+        /// Returns the rules for the route
+        /// </summary>
+        public List<MapCSSRuleProperties> ArrowRules { get; set; }
+
+        /// <summary>
         /// Gets/sets the default points.
         /// </summary>
         public bool DefaultPoints { get; set; }

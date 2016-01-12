@@ -23,7 +23,7 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
     /// <summary>
     /// Holds all possible MapCSS rule newProperties.
     /// </summary>
-    internal class MapCSSRuleProperties
+    public class MapCSSRuleProperties
     {
         /// <summary>
         /// Holds the properties.

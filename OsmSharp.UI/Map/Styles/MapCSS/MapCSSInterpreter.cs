@@ -79,8 +79,10 @@ namespace OsmSharp.UI.Map.Styles.MapCSS
         private HashSet<string> _keysForLines;
 
         private HashSet<TagsCollectionBase> _unsuccesfullWays;
+        private HashSet<TagsCollectionBase> _unsuccesfullRelations;
 
         private Dictionary<TagsCollectionBase, List<MapCSSRuleProperties>> _succesfullWays;
+        private Dictionary<TagsCollectionBase, List<MapCSSRuleProperties>> _succesfullRelations;
 
         /// <summary>
         /// Creates a new MapCSS interpreter.
@@ -178,7 +180,9 @@ namespace OsmSharp.UI.Map.Styles.MapCSS
             }
 
             _unsuccesfullWays = new HashSet<TagsCollectionBase>();
+            _unsuccesfullRelations = new HashSet<TagsCollectionBase>();
             _succesfullWays = new Dictionary<TagsCollectionBase, List<MapCSSRuleProperties>>();
+            _succesfullRelations = new Dictionary<TagsCollectionBase, List<MapCSSRuleProperties>>();
          }
 
         /// <summary>
@@ -273,6 +277,206 @@ namespace OsmSharp.UI.Map.Styles.MapCSS
                            };
             }
             return SimpleColor.FromKnownColor(KnownColor.Black);
+        }
+
+        /// <summary>
+        /// Returns the route color.
+        /// </summary>
+        /// <returns></returns>
+        public SimpleColor GetRouteColor()
+        {
+            if (_mapCSSFile != null &&
+                _mapCSSFile.RouteFillColor.HasValue)
+            { // instantiate the simple color.
+                return new SimpleColor()
+                {
+                    Value = _mapCSSFile.RouteFillColor.Value
+                };
+            }
+            return SimpleColor.FromKnownColor(KnownColor.Black);
+        }
+
+        /// <summary>
+        /// Returns the route z-index
+        /// </summary>
+        public int RouteZIndex
+        {
+            get
+            {
+                var z_index = 0;
+
+                if (_mapCSSFile != null &&
+                    _mapCSSFile.RouteZIndex.HasValue)
+                {
+                    return _mapCSSFile.RouteZIndex.Value;
+                }
+
+                return z_index;
+            }
+        }
+
+        /// <summary>
+        /// Returns the rules for the route
+        /// </summary>
+        public List<MapCSSRuleProperties> RouteRules
+        {
+            get
+            {
+                return _mapCSSFile.RouteRules;
+            }
+        }
+
+        /// <summary>
+        /// Returns the arrow color
+        /// </summary>
+        /// <returns></returns>
+        public SimpleColor GetArrowColor()
+        {
+            if (_mapCSSFile != null &&
+                _mapCSSFile.ArrowFillColor.HasValue)
+            { // instantiate the simple color.
+                return new SimpleColor()
+                {
+                    Value = _mapCSSFile.ArrowFillColor.Value
+                };
+            }
+            return SimpleColor.FromKnownColor(KnownColor.Black);
+        }
+
+        /// <summary>
+        /// Returns the route z-index
+        /// </summary>
+        public int ArrowZIndex
+        {
+            get
+            {
+                var z_index = 0;
+
+                if (_mapCSSFile != null &&
+                    _mapCSSFile.ArrowZIndex.HasValue)
+                {
+                    z_index = _mapCSSFile.ArrowZIndex.Value;
+                }
+
+                return z_index;
+            }
+        }
+
+        /// <summary>
+        /// Returns the rules for the route
+        /// </summary>
+        public List<MapCSSRuleProperties> ArrowRules
+        {
+            get
+            {
+                return _mapCSSFile.ArrowRules;
+            }
+        }
+
+        /// <summary>
+        /// Returns a collection of MapCSS rules for the given osmgeo type and tags collection
+        /// </summary>
+        /// <param name="type">The type of osm object</param>
+        /// <param name="tags">The tags of the osm object</param>
+        public List<MapCSSRuleProperties> RulesFor(OsmGeoType type, TagsCollectionBase tags)
+        {
+            switch(type)
+            {
+                case OsmGeoType.Node:
+                    return this.BuildRules(new MapCSSObject(new Node { Tags = tags }));
+                case OsmGeoType.Way:
+                    return this.BuildRules(new MapCSSObject(new Way { Tags = tags }));
+                case OsmGeoType.Relation:
+                    return this.BuildRules(new MapCSSObject(new Relation { Tags = tags }));
+                default:
+                    throw new ArgumentOutOfRangeException("type", type, null);
+            }
+        }
+
+        /// <summary>
+        /// Returns a collection of MapCSS rules for the given node
+        /// </summary>
+        /// <param name="node">The node to assess</param>
+        public List<MapCSSRuleProperties> RulesFor(Node node)
+        {
+            if (node == null)
+            {
+                throw new ArgumentNullException("node");
+            }
+
+            return this.BuildRules(new MapCSSObject(node));
+        }
+
+        /// <summary>
+        /// Returns a collection of MapCSS rules for the given way
+        /// </summary>
+        /// <param name="way">The way to assess</param>
+        public List<MapCSSRuleProperties> RulesFor(Way way)
+        {
+            if (way == null)
+            {
+                throw new ArgumentNullException("way");
+            }
+
+            if (way.Tags != null)
+            {
+                var relevant_tags = way.Tags;
+
+                if (_keysForWays != null)
+                {
+                    relevant_tags = way.Tags.KeepKeysOf(_keysForWays);
+                }
+
+                List<MapCSSRuleProperties> rules;
+
+                if (!_succesfullWays.TryGetValue(relevant_tags, out rules))
+                {
+                    rules = this.BuildRules(new MapCSSObject(way));
+                    _succesfullWays.Add(relevant_tags, rules);
+                }
+
+                return rules;
+            }
+            else
+            {
+                throw new ArgumentException("Way has no tags");
+            }
+        }
+
+        /// <summary>
+        /// Returns a collection of MapCSS rules for a given relation
+        /// </summary>
+        /// <param name="relation"></param>
+        public List<MapCSSRuleProperties> RulesFor(Relation relation)
+        {
+            if (relation == null)
+            {
+                throw new ArgumentNullException("relation");
+            }
+
+            if (relation.Tags != null)
+            {
+                var relevant_tags = relation.Tags;
+
+                if (_keysForRelations != null)
+                {
+                    relevant_tags = relation.Tags.KeepKeysOf(_keysForRelations);
+                }
+
+                List<MapCSSRuleProperties> rules;
+
+                if (!_succesfullRelations.TryGetValue(relevant_tags, out rules))
+                {
+                    rules = this.BuildRules(new MapCSSObject(relation));
+                    _succesfullRelations.Add(relevant_tags, rules);
+                }
+
+                return rules;
+            }
+            else
+            {
+                throw new ArgumentException("Relation has no Tags");
+            }
         }
 
         /// <summary>
