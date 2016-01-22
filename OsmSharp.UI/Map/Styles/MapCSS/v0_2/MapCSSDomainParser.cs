@@ -66,6 +66,22 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
                             child.Children[0].Text == "SIMPLE_SELECTOR" &&
                             child.Children[0].ChildCount == 1 &&
                             child.Children[0] is CommonTree &&
+                            (child.Children[0] as CommonTree).Children[0].Text == "route")
+                        { // this child represents the route rule.
+                            MapCSSDomainParser.ParseRouteRule(file, child as CommonTree);
+                        }
+                        else if (child.ChildCount == 2 &&
+                            child.Children[0].Text == "SIMPLE_SELECTOR" &&
+                            child.Children[0].ChildCount == 1 &&
+                            child.Children[0] is CommonTree &&
+                            (child.Children[0] as CommonTree).Children[0].Text == "arrow")
+                        { // this child represents the route rule.
+                            MapCSSDomainParser.ParseArrowRule(file, child as CommonTree);
+                        }
+                        else if (child.ChildCount == 2 &&
+                            child.Children[0].Text == "SIMPLE_SELECTOR" &&
+                            child.Children[0].ChildCount == 1 &&
+                            child.Children[0] is CommonTree &&
                             (child.Children[0] as CommonTree).Children[0].Text == "meta")
                         { // this child represents the canvas rule.
                             MapCSSDomainParser.ParseMetaRule(file, child as CommonTree);
@@ -123,6 +139,168 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
                             if (rule.Children[1].Text == "true")
                             {
                                 file.DefaultLines = true;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Parses the route rule.
+        /// </summary>
+        /// <param name="ruleTree"></param>
+        /// <returns></returns>
+        private static void ParseRouteRule(MapCSSFile file, CommonTree ruleTree)
+        {
+            if (file.RouteRules == null)
+            {
+                file.RouteRules = new List<MapCSSRuleProperties>();
+            }
+
+            if (ruleTree.ChildCount >= 2 &&
+                ruleTree.Children[1] != null)
+            { // loop over all declaration rules in route.
+                foreach (CommonTree rule_tree in (ruleTree.Children[1] as CommonTree).Children)
+                {
+                    var rule = new MapCSSRuleProperties();
+                    file.RouteRules.Add(rule);
+
+                    if (rule_tree.Text == "DECLARATION" && rule_tree.Children != null &&
+                        rule_tree.Children.Count > 0)
+                    {
+                        // parse the color
+                        if (rule_tree.Children[0].Text == "color")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var color = MapCSSDomainParser.ParseColor(rule_tree.Children[1] as CommonTree);
+
+                                file.RouteFillColor = color;
+                                rule.AddProperty("color", color);
+                            }
+                        }
+                        // parse the z index
+                        else if (rule_tree.Children[0].Text == "z-index")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var z_index = int.Parse(rule_tree.Children[1].Text);
+
+                                file.RouteZIndex = z_index;
+                                rule.AddProperty("zIndex", z_index);
+                            }
+                        }
+                        // parse the width
+                        else if (rule_tree.Children[0].Text == "width")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var width = float.Parse(rule_tree.Children[1].Text);
+
+                                rule.AddProperty("width", width);
+                            }
+                        }
+                        // parse the casing-width
+                        else if (rule_tree.Children[0].Text == "casing-width")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var casing_width = float.Parse(rule_tree.Children[1].Text);
+
+                                rule.AddProperty("casingWidth", casing_width);
+                            }
+                        }
+                        // parse the casing-color
+                        else if (rule_tree.Children[0].Text == "casing-color")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var color = MapCSSDomainParser.ParseColor(rule_tree.Children[1] as CommonTree);
+
+                                file.RouteFillColor = color;
+                                rule.AddProperty("casingColor", color);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        /// <summary>
+        /// Parses the arrow rule.
+        /// </summary>
+        /// <param name="ruleTree"></param>
+        /// <returns></returns>
+        private static void ParseArrowRule(MapCSSFile file, CommonTree ruleTree)
+        {
+            if (file.ArrowRules == null)
+            {
+                file.ArrowRules = new List<MapCSSRuleProperties>();
+            }
+
+            if (ruleTree.ChildCount >= 2 &&
+                ruleTree.Children[1] != null)
+            { // loop over all declaration rules in route.
+                foreach (CommonTree rule_tree in (ruleTree.Children[1] as CommonTree).Children)
+                {
+                    var rule = new MapCSSRuleProperties();
+                    file.ArrowRules.Add(rule);
+
+                    if (rule_tree.Text == "DECLARATION" &&
+                        rule_tree.Children != null &&
+                        rule_tree.Children.Count > 0)
+                    {
+                        // parse the color
+                        if (rule_tree.Children[0].Text == "color")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var color = MapCSSDomainParser.ParseColor(rule_tree.Children[1] as CommonTree);
+
+                                file.ArrowFillColor = color;
+                                rule.AddProperty("color", color);
+                            }
+                        }
+                        // parse the z index
+                        else if (rule_tree.Children[0].Text == "z-index")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var z_index = int.Parse(rule_tree.Children[1].Text);
+
+                                file.ArrowZIndex = z_index;
+                                rule.AddProperty("zIndex", z_index);
+                            }
+                        }
+                        // parse the width
+                        else if (rule_tree.Children[0].Text == "width")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var width = float.Parse(rule_tree.Children[1].Text);
+
+                                rule.AddProperty("width", width);
+                            }
+                        }
+                        // parse the casing-width
+                        else if (rule_tree.Children[0].Text == "casing-width")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var casing_width = float.Parse(rule_tree.Children[1].Text);
+
+                                rule.AddProperty("casingWidth", casing_width);
+                            }
+                        }
+                        // parse the casing-color
+                        else if (rule_tree.Children[0].Text == "casing-color")
+                        {
+                            if (rule_tree.Children[1].Text != null)
+                            {
+                                var color = MapCSSDomainParser.ParseColor(rule_tree.Children[1] as CommonTree);
+
+                                rule.AddProperty("casingColor", color);
                             }
                         }
                     }
