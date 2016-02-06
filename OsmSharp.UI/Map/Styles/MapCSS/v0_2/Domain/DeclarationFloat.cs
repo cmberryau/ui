@@ -55,6 +55,10 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Domain
         /// </summary>
         Width,
         /// <summary>
+        /// Height option.
+        /// </summary>
+        Height,
+        /// <summary>
         /// Fill opacity option.
         /// </summary>
         FillOpacity,
