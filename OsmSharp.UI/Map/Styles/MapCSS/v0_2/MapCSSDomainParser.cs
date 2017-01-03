@@ -1369,7 +1369,29 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
                             // add declaration.
                             rule.Declarations.Add(height);
                             break;
+                        case "minimum-zoom":
+                            var minimumZoom = new DeclarationFloat();
+                            minimumZoom.Qualifier = DeclarationFloatEnum.MinimumZoom;
+                            if (evalCall != null)
+                            {
+                                minimumZoom.EvalFunction = evalCall;
+                            }
+                            else
+                            {
+                                if (float.TryParse(valueString, NumberStyles.Any, CultureInfo.InvariantCulture, out valueFloat))
+                                {
+                                    minimumZoom.Value = valueFloat;
+                                }
+                                else
+                                { // value could not be parsed.
+                                    throw new MapCSSDomainParserException(declarationTree,
+                                                                                string.Format("{1} value {0} cannot be parsed!", valueString, qualifierString));
+                                }
+                            }
 
+                            // add declaration.
+                            rule.Declarations.Add(minimumZoom);
+                            break;
                         case "icon-width":
                             var iconWidth = new DeclarationInt();
                             iconWidth.Qualifier = DeclarationIntEnum.IconWidth;
@@ -1509,6 +1531,29 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2
 
                             // add declaration.
                             rule.Declarations.Add(opacity);
+                            break;
+                        case "max-height":
+                            var max_height = new DeclarationFloat();
+                            max_height.Qualifier = DeclarationFloatEnum.MaxHeight;
+                            if (evalCall != null)
+                            {
+                                max_height.EvalFunction = evalCall;
+                            }
+                            else
+                            {
+                                if (float.TryParse(valueString, NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out valueFloat))
+                                {
+                                    max_height.Value = valueFloat;
+                                }
+                                else
+                                { // value could not be parsed.
+                                    throw new MapCSSDomainParserException(declarationTree,
+                                                                                string.Format("{1} value {0} cannot be parsed!", valueString, qualifierString));
+                                }
+                            }
+
+                            // add declaration.
+                            rule.Declarations.Add(max_height);
                             break;
                         case "dashes":
                             var dashes = new DeclarationDashes();

@@ -39,7 +39,7 @@
 //        /// <summary>
 //        /// Holds the connection.
 //        /// </summary>
-//        private SQLiteConnectionBase _connection;
+//        private SqliteConnectionBase _connection;
 
 //        /// <summary>
 //        /// Holds the minimum zoom level.
@@ -76,7 +76,7 @@
 //        /// </summary>
 //        /// <param name="connection">The SQLite connection to the MBTiles.</param>
 //        /// <param name="tileCacheSize">The size of tiles to cache.</param>
-//        public LayerMBTile(SQLiteConnectionBase connection, int tileCacheSize)
+//        public LayerMBTile(SqliteConnectionBase connection, int tileCacheSize)
 //        {
 //            _nativeImageCache = NativeImageCacheFactory.Create();
 //            _connection = connection;
@@ -90,7 +90,7 @@
 //        /// Creates a new tiles layer.
 //        /// </summary>
 //        /// <param name="connection">The SQLite connection to the MBTiles.</param>
-//        public LayerMBTile(SQLiteConnectionBase connection)
+//        public LayerMBTile(SqliteConnectionBase connection)
 //            : this(connection, 40)
 //        {
 

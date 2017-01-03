@@ -1134,6 +1134,12 @@ namespace OsmSharp.UI.Map.Styles.MapCSS
                                 case DeclarationFloatEnum.Height:
                                     properties.AddProperty("height", declarationFloat.Eval(mapCSSObject));
                                     break;
+                                case DeclarationFloatEnum.MinimumZoom:
+                                    properties.AddProperty("minimum-zoom", declarationFloat.Eval(mapCSSObject));
+                                    break;
+                                case DeclarationFloatEnum.MaxHeight:
+                                    properties.AddProperty("max-height", declarationFloat.Eval(mapCSSObject));
+                                    break;
                                 case DeclarationFloatEnum.FillOpacity:
                                     properties.AddProperty("fillOpacity", declarationFloat.Eval(mapCSSObject));
                                     break;

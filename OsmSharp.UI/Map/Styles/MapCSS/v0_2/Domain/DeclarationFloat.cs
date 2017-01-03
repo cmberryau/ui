@@ -59,6 +59,14 @@ namespace OsmSharp.UI.Map.Styles.MapCSS.v0_2.Domain
         /// </summary>
         Height,
         /// <summary>
+        /// Minimum Zoom.
+        /// </summary>
+        MinimumZoom,
+        /// <summary>
+        /// Max height option.
+        /// </summary>
+        MaxHeight,
+        /// <summary>
         /// Fill opacity option.
         /// </summary>
         FillOpacity,
